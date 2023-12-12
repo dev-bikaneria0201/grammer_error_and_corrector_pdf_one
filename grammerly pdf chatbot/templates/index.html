@@ -1,0 +1,114 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Grammar and Spelling Check</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+
+        form {
+            max-width: 600px;
+            margin: 20px auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+        }
+
+        textarea,
+        input[type="file"],
+        input[type="submit"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            box-sizing: border-box;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        input[type="submit"] {
+            background-color: #4caf50;
+            color: #fff;
+            cursor: pointer;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #45a049;
+        }
+
+        #loading {
+            display: none;
+            text-align: center;
+            padding: 20px;
+            background-color: #f8f8f8;
+            border: 1px solid #ddd;
+            margin-top: 10px;
+            border-radius: 4px;
+        }
+
+        h2 {
+            color: #333;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Grammar and Spelling Check</h1>
+    <form id="grammarForm" method="post" enctype="multipart/form-data">
+        <label for="user_text">Enter Paragraph:</label>
+        <textarea name="user_text" rows="4" cols="50"></textarea>
+        <br>
+        <label for="file">Upload PDF:</label>
+        <input type="file" name="file">
+        <br>
+        <input type="submit" value="Submit" onclick="showLoading()">
+    </form>
+
+    <div id="loading" class="loading">
+        <p>Scanning...</p>
+    </div>
+
+    {% if user_text %}
+    <h2>Original Text:</h2>
+    <p>{{ user_text }}</p>
+    <h2>Corrected Text:</h2>
+    <p>{{ corrected_text }}</p>
+    <h2>Number of Errors:</h2>
+    <p>Number of spelling errors: {{ num_spelling_errors }}</p>
+    <p>Number of punctuation errors: {{ num_punctuation_errors }}</p>
+    {% endif %}
+
+    <script>
+        function showLoading() {
+            var form = document.getElementById('grammarForm');
+            var loading = document.getElementById('loading');
+
+            // Display the loading message
+            loading.style.display = 'block';
+
+            // Disable the form while processing
+            form.style.pointerEvents = 'none';
+        }
+    </script>
+</body>
+
+</html>
+
